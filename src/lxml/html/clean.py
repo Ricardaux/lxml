@@ -279,7 +279,8 @@ class Cleaner(object):
         # Normalize a case that IE treats <image> like <img>, and that
         # can confuse either this step or later steps.
         for el in doc.iter('image'):
-            el.tag = 'img'
+            if 'svg' not in el.parents:
+                el.tag = 'img'
         if not self.comments:
             # Of course, if we were going to kill comments anyway, we don't
             # need to worry about this

@@ -210,6 +210,11 @@ class CleanerTest(unittest.TestCase):
                 cleaned,
                 "%s  ->  %s" % (url, cleaned))
 
+    def test_should_keep_image_tag_in_svg(self):
+        s = lxml.html.fromstring('<div><svg><image/></svg></div>')
+
+        self.assertIn('image', clean_html(s).text_content())
+
     def test_image_data_links(self):
         data = b'123'
         data_b64 = base64.b64encode(data).decode('ASCII')
